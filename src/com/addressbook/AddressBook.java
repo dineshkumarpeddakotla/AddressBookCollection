@@ -3,8 +3,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
-    public static final int ADD_DETAILS = 1;
-    public static final int EDIT_DETAILS = 1;
+    public static final int ADD_PERSON_DETAILS = 1;
+    public static final int EDIT_PERSON_DETAILS = 1;
+    public static final int DELETE_PERSON_DETAILS =2;
     ArrayList<ContactDetails> personsdata;
     public AddressBook() {
         personsdata = new ArrayList<>();
@@ -87,21 +88,36 @@ public class AddressBook {
         }
         System.out.println(personsdata);
     }
+    public void deletePersonContactDetails(String firstName) {
+        for (int i = 0; i < personsdata.size(); i++) {
+            ContactDetails person = personsdata.get(i);
+            if (firstName.equals(person.getFirstName()))
+                System.out.print(person);
+            personsdata.remove(i);
+        }
+    }
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book");
         AddressBook addressBook = new AddressBook();
         Scanner sc = new Scanner(System.in);
-        System.out.println("1.If You Want to Person Details");
+        System.out.println("1.If You Want Add Person Details");
         int addChoice = sc.nextInt();
-        if (addChoice == ADD_DETAILS) {
+        if (addChoice == ADD_PERSON_DETAILS) {
             addressBook.addPerson();
-            System.out.println("1.If You Want to Edit Entered details");
+            System.out.println("What You Want Choose\n1.Edit Person Details\n2.Delete Person Details");
             int choice2 = sc.nextInt();
-            if (choice2 == EDIT_DETAILS) {
-                Scanner input = new Scanner(System.in);
+            switch (choice2 ) {
+                case EDIT_PERSON_DETAILS:
                 System.out.println("Enter First Name of Edit Person Details");
-                String firstName = input.nextLine();
+                String firstName = sc.nextLine();
                 addressBook.editPersonContactDetails(firstName);
+                break;
+                case DELETE_PERSON_DETAILS:
+                    System.out.println("Enter First Name of Delete Person Details");
+                    String fName=sc.nextLine();
+                    addressBook.deletePersonContactDetails(fName);
+                    break;
+                default:System.out.println("Exit");
             }
         }
     }
