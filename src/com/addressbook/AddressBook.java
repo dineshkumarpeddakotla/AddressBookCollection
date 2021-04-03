@@ -1,9 +1,33 @@
 package com.addressbook;
 
+import java.util.Scanner;
+
 public class AddressBook {
+    static Scanner input = new Scanner(System.in);
+    static ContactDetails person = new ContactDetails();
+    public static void setContactDetails(){
+        System.out.println("Enter the First Name");
+        person.setFirstName(input.nextLine());
+        System.out.println("Enter the Last Name");
+        person.setLastName(input.nextLine());
+        System.out.println("Enter the Address");
+        person.setAddress(input.nextLine());
+        System.out.println("Enter the City");
+        person.setCity(input.nextLine());
+        System.out.println("Enter the State");
+        person.setState(input.nextLine());
+        System.out.println("Enter the Zip Code");
+        person.setZipCode(input.nextLine());
+        System.out.println("Enter the Phone Number");
+        person.setPhoneNumber(input.nextLine());
+        System.out.println("Enter the Email");
+        person.setEmail(input.nextLine());
+    }
 
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book");
+        setContactDetails();
+        System.out.println(person.toString());
     }
 }
 class ContactDetails{
@@ -63,5 +87,9 @@ class ContactDetails{
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String toString(){
+        return ("First Name: " +firstName+"\nLast Name: " +lastName+"\nAddress: "+address+"\nCity: "+city+
+                "\nState: "+state+"\nZip Code: "+zipCode+"\nPhone Number: "+phoneNumber+"\nEmail: "+email);
     }
 }
