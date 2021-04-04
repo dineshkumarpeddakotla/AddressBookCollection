@@ -1,15 +1,15 @@
 package com.addressbook;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class AddressBook {
     public static final int ADD_PERSON_DETAILS = 1;
     public static final int EDIT_PERSON_DETAILS = 1;
     public static final int DELETE_PERSON_DETAILS =2;
     ArrayList<ContactDetails> personsdata;
+    HashMap<String, ArrayList<ContactDetails>> addressBookDic;
     public AddressBook() {
         personsdata = new ArrayList<>();
+        addressBookDic = new HashMap<>();
     }
     public void addPerson() {
         Scanner sc = new Scanner(System.in);
@@ -96,31 +96,40 @@ public class AddressBook {
         System.out.println("Welcome to Address Book");
         AddressBook addressBook = new AddressBook();
         Scanner sc = new Scanner(System.in);
-        System.out.println("1.If You Want Add Person Details");
-        int addChoice = sc.nextInt();
-        if (addChoice == ADD_PERSON_DETAILS) {
-            System.out.println("Enter Number of Persons to Add");
-            int numberOfPersons = sc.nextInt();
-            for (int i=0;i<numberOfPersons;i++){
-                addressBook.addPerson();
-            }
-            System.out.println("What You Want Choose\n1.Edit Person Details\n2.Delete Person Details");
-            int choice2 = sc.nextInt();
-            switch (choice2 ) {
-                case EDIT_PERSON_DETAILS:
-                System.out.println("Enter First Name of Edit Person Details");
-                String firstName = sc.nextLine();
-                addressBook.editPersonContactDetails(firstName);
-                break;
-                case DELETE_PERSON_DETAILS:
-                    System.out.println("Enter First Name of Delete Person Details");
-                    Scanner delete = new Scanner(System.in);
-                    String deleteDetails=delete.nextLine();
-                    addressBook.deletePersonContactDetails(deleteDetails);
-                    break;
-                default:System.out.println("Exit");
+        int numberOfAddressBook = sc.nextInt();
+        for (int j = 0; j < numberOfAddressBook; j++) {
+            System.out.println("Enter the Key Value for Address Book Dic");
+            Scanner keyValue = new Scanner(System.in);
+            String key = keyValue.nextLine();
+            addressBook.addressBookDic.put(key, addressBook.personsdata);
+            System.out.println("1.If You Want Add Person Details");
+            int addChoice = sc.nextInt();
+            if (addChoice == ADD_PERSON_DETAILS) {
+                System.out.println("Enter Number of Persons to Add");
+                int numberOfPersons = sc.nextInt();
+                for (int i = 0; i < numberOfPersons; i++) {
+                    addressBook.addPerson();
+                }
+                System.out.println("What You Want Choose\n1.Edit Person Details\n2.Delete Person Details\n3.Exit");
+                int choice2 = sc.nextInt();
+                switch (choice2) {
+                    case EDIT_PERSON_DETAILS:
+                        System.out.println("Enter First Name of Edit Person Details");
+                        String firstName = sc.nextLine();
+                        addressBook.editPersonContactDetails(firstName);
+                        break;
+                    case DELETE_PERSON_DETAILS:
+                        System.out.println("Enter First Name of Delete Person Details");
+                        Scanner delete = new Scanner(System.in);
+                        String deleteDetails = delete.nextLine();
+                        addressBook.deletePersonContactDetails(deleteDetails);
+                        break;
+                    default:
+                        System.out.println("Exit");
+                }
             }
         }
+        addressBook.addressBookDic.forEach((key, value) -> System.out.println(key + " " + value));
     }
 }
 class ContactDetails extends AddressBook {
