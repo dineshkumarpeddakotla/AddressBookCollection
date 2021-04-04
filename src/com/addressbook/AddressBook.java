@@ -1,4 +1,5 @@
 package com.addressbook;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -81,20 +82,15 @@ public class AddressBook {
                         String email = input.nextLine();
                         person.setEmail(email);
                         break;
-                    default:
-                        System.out.println("Exit");
+                    default: System.out.println("Exit");
                 }
             }
         }
         System.out.println(personsdata);
     }
     public void deletePersonContactDetails(String firstName) {
-        for (int i = 0; i < personsdata.size(); i++) {
-            ContactDetails person = personsdata.get(i);
-            if (firstName.equals(person.getFirstName()))
-                System.out.print(person);
-            personsdata.remove(i);
-        }
+        personsdata.removeIf(person -> firstName.equals(person.getFirstName()));
+        System.out.print(personsdata);
     }
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book");
@@ -103,7 +99,11 @@ public class AddressBook {
         System.out.println("1.If You Want Add Person Details");
         int addChoice = sc.nextInt();
         if (addChoice == ADD_PERSON_DETAILS) {
-            addressBook.addPerson();
+            System.out.println("Enter Number of Persons to Add");
+            int numberOfPersons = sc.nextInt();
+            for (int i=0;i<numberOfPersons;i++){
+                addressBook.addPerson();
+            }
             System.out.println("What You Want Choose\n1.Edit Person Details\n2.Delete Person Details");
             int choice2 = sc.nextInt();
             switch (choice2 ) {
@@ -114,8 +114,9 @@ public class AddressBook {
                 break;
                 case DELETE_PERSON_DETAILS:
                     System.out.println("Enter First Name of Delete Person Details");
-                    String fName=sc.nextLine();
-                    addressBook.deletePersonContactDetails(fName);
+                    Scanner delete = new Scanner(System.in);
+                    String deleteDetails=delete.nextLine();
+                    addressBook.deletePersonContactDetails(deleteDetails);
                     break;
                 default:System.out.println("Exit");
             }
