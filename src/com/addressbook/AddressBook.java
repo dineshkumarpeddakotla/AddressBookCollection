@@ -2,16 +2,17 @@ package com.addressbook;
 import java.util.*;
 
 public class AddressBook {
-    public static final int ADD_PERSON_DETAILS = 1;
-    public static final int EDIT_PERSON_DETAILS = 1;
-    public static final int DELETE_PERSON_DETAILS =2;
-    ArrayList<ContactDetails> personsdata;
-    HashMap<String, ArrayList<ContactDetails>> addressBookDic;
+    private static final int ADD_PERSON_DETAILS = 1;
+    private static final int EDIT_PERSON_DETAILS = 2;
+    private static final int DELETE_PERSON_DETAILS = 3;
+
+    static ArrayList<ContactDetails> personsData;
+
     public AddressBook() {
-        personsdata = new ArrayList<>();
-        addressBookDic = new HashMap<>();
+        personsData = new ArrayList<>();
     }
-    public void addPerson() {
+
+    public static ContactDetails addPerson() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the First Name");
         String firstName = sc.nextLine();
@@ -29,18 +30,26 @@ public class AddressBook {
         String phoneNumber = sc.nextLine();
         System.out.println("Enter the Email");
         String email = sc.nextLine();
-        ContactDetails person = new ContactDetails(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
-        personsdata.add(person);
+        ContactDetails person = new ContactDetails(firstName,lastName,address,
+                city,state,zipCode,phoneNumber,email);
+        personsData.add(person);
+        sc.close();
+        return person;
     }
-    public void editPersonContactDetails(String firstName) {
+
+    public static void editPersonContactDetails(String firstName) {
         Scanner sc = new Scanner(System.in);
-        for (ContactDetails person : personsdata) {
+
+        for (ContactDetails person : personsData) {
+
             if (firstName.equals(person.getFirstName())) {
                 System.out.println("1.First Name\n2.Last Name\n3.Address\n4.City\n" +
                         "5.State\n6.Zip Code\n7.Phone Number\n8.Email\n9.Exit");
                 System.out.println("Which Details You Want to Change From Above List And Please Enter Edit Choice");
+
                 int editChoice = sc.nextInt();
                 Scanner input = new Scanner(System.in);
+
                 switch (editChoice) {
                     case 1:
                         System.out.println("Enter First Name to Change");
@@ -82,105 +91,60 @@ public class AddressBook {
                         String email = input.nextLine();
                         person.setEmail(email);
                         break;
-                    default: System.out.println("Exit");
-                }
-            }
-        }
-        System.out.println(personsdata);
-    }
-    public void deletePersonContactDetails(String firstName) {
-        personsdata.removeIf(person -> firstName.equals(person.getFirstName()));
-        System.out.print(personsdata);
-    }
-    public static void main(String[] args) {
-        System.out.println("Welcome to Address Book");
-        AddressBook addressBook = new AddressBook();
-        Scanner sc = new Scanner(System.in);
-        int numberOfAddressBook = sc.nextInt();
-        for (int j = 0; j < numberOfAddressBook; j++) {
-            System.out.println("Enter the Key Value for Address Book Dic");
-            Scanner keyValue = new Scanner(System.in);
-            String key = keyValue.nextLine();
-            addressBook.addressBookDic.put(key, addressBook.personsdata);
-            System.out.println("1.If You Want Add Person Details");
-            int addChoice = sc.nextInt();
-            if (addChoice == ADD_PERSON_DETAILS) {
-                System.out.println("Enter Number of Persons to Add");
-                int numberOfPersons = sc.nextInt();
-                for (int i = 0; i < numberOfPersons; i++) {
-                    addressBook.addPerson();
-                }
-                System.out.println("What You Want Choose\n1.Edit Person Details\n2.Delete Person Details\n3.Exit");
-                int choice2 = sc.nextInt();
-                switch (choice2) {
-                    case EDIT_PERSON_DETAILS:
-                        System.out.println("Enter First Name of Edit Person Details");
-                        String firstName = sc.nextLine();
-                        addressBook.editPersonContactDetails(firstName);
-                        break;
-                    case DELETE_PERSON_DETAILS:
-                        System.out.println("Enter First Name of Delete Person Details");
-                        Scanner delete = new Scanner(System.in);
-                        String deleteDetails = delete.nextLine();
-                        addressBook.deletePersonContactDetails(deleteDetails);
-                        break;
                     default:
                         System.out.println("Exit");
                 }
+                input.close();
             }
         }
-        addressBook.addressBookDic.forEach((key, value) -> System.out.println(key + " " + value));
+        System.out.println(personsData);
+        sc.close();
     }
-}
-class ContactDetails extends AddressBook {
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String phoneNumber;
-    private String email;
 
-    public String getFirstName() {
-        return firstName;
+    public void deletePersonContactDetails(String firstName) {
+        personsData.removeIf(person -> firstName.equals(person.getFirstName()));
+        System.out.println(personsData);
     }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+
+    private static boolean checkDuplicate(String name) {
+        return personsData.stream()
+                .anyMatch(person -> person.getFirstName().equals(name) || person.getLastName().equals(name));
     }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    private static String getName() {
+        System.out.println("Please enter name");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next();
     }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public void setCity(String city) {
-        this.city = city;
-    }
-    public void setState(String state) {
-        this.state = state;
-    }
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public ContactDetails(String firstName, String lastName, String address, String city, String state, String zipCode, String phoneNumber, String email) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setAddress(address);
-        setCity(city);
-        setState(state);
-        setZipCode(zipCode);
-        setPhoneNumber(phoneNumber);
-        setEmail(email);
-    }
-    public String toString() {
-        return ("First Name: " + firstName + "\nLast Name: " + lastName + "\nAddress: " + address + "\nCity: " + city +
-                "\nState: " + state + "\nZip Code: " + zipCode + "\nPhone Number: " + phoneNumber + "\nEmail: " + email);
+    public void addressBookOperations() {
+
+        Scanner scanner = new Scanner(System.in);
+        boolean isExit = false;
+
+        while (!isExit) {
+
+            System.out.println("Please select \n1.Adding Person\n2.Updating Person\n3.Delete Person\n4.Exit");
+            int choice = scanner.nextInt();
+            switch (choice) {
+
+                case ADD_PERSON_DETAILS:
+                    if (!checkDuplicate(getName())) {
+                        personsData.add(addPerson());
+                    }
+                    System.out.println(personsData.toString());
+                    break;
+                case EDIT_PERSON_DETAILS:
+                    System.out.println("Please enter name to Update");
+                    String name = scanner.nextLine();
+                    editPersonContactDetails(name);
+                    break;
+                case DELETE_PERSON_DETAILS:
+                    System.out.println("Please enter name to Delete");
+                    String deleteName = scanner.nextLine();
+                    deletePersonContactDetails(deleteName);
+                    System.out.println(personsData.toString());
+                    break;
+                default: isExit = true;
+            }
+        }
     }
 }
