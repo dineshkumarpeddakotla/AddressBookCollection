@@ -15,7 +15,8 @@ public class AddressBookMain {
         System.out.println("Welcome to Address Book");
         boolean isExit = false;
         while (!isExit) {
-            System.out.println("1.Create New Address Book\n2.Add Person to AddressBook \n3.Search Person by City or State\n4.Exit");
+            System.out.println("1.Create New Address Book\n2.Add Person to AddressBook " +
+                               "\n3.View Person by City\n4.View Person by State\n5.Exit");
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
             System.out.println(choice);
