@@ -2,16 +2,21 @@ package com.addressbook;
 import java.util.*;
 
 public class AddressBook {
+    //Declared and Initialized Constants
     private static final int ADD_PERSON_DETAILS = 1;
     private static final int EDIT_PERSON_DETAILS = 2;
     private static final int DELETE_PERSON_DETAILS = 3;
+    private static final int Exit = 4;
 
+    //Array Declared
     private final ArrayList<ContactDetails> personsData;
 
+    //Constructor Introduced
     public AddressBook() {
         personsData = new ArrayList<>();
     }
 
+    //Adding Person Contact Details
     private ContactDetails addPerson() {
         Scanner sc = new Scanner(System.in);
 
@@ -36,6 +41,7 @@ public class AddressBook {
                                   city,state,zipCode,phoneNumber,email);
     }
 
+    //Edit the Person ContactDetails
     private void editPersonContactDetails(ContactDetails person) {
         Scanner sc = new Scanner(System.in);
         System.out.println("1.First Name\n2.Last Name\n3.Address\n4.City\n" +
@@ -91,11 +97,13 @@ public class AddressBook {
         }
     }
 
+    //Deleted Person Contact Details
     private void deletePersonContactDetails(String firstName) {
         personsData.removeIf(person -> firstName.equals(person.getFirstName()));
         System.out.println(personsData);
     }
 
+    //Checking for Duplicate Entry
     private boolean checkDuplicate(String name) {
         return personsData.stream().anyMatch(person -> person.getFirstName().equals(name) || person.getLastName().equals(name));
     }
@@ -107,7 +115,7 @@ public class AddressBook {
                                         .findFirst().orElse(null);
 
         if (contactDetails == null) {
-            System.out.println("No person present matching with your given name");
+            System.out.println("No Person Present Matching with Your Given Name");
             return null;
         } else {
             return contactDetails;
@@ -144,16 +152,20 @@ public class AddressBook {
                         editPersonContactDetails(person);
                         System.out.println("Edit Person Details : "+person);
                     } else {
-                        System.out.println("Contact Details Are Not Exits");
+                        System.out.println("Contact Details are Not Exits");
                     }
                     break;
                 case DELETE_PERSON_DETAILS:
-                    System.out.println("Please enter name to Delete");
+                    System.out.println("Please Enter Name to Delete");
                     String deleteName = scanner.nextLine();
                     deletePersonContactDetails(deleteName);
                     System.out.println(personsData.toString());
                     break;
-                default: isExit = true;
+                case Exit:
+                    isExit = true;
+                    break;
+                default:
+                    System.out.println("Please Enter Valid Option");
             }
         }
     }
