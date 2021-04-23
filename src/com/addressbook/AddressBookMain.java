@@ -15,7 +15,8 @@ public class AddressBookMain {
         boolean isExit = false;
         while (!isExit) {
             System.out.println("1.Create New Address Book\n2.Add Person to AddressBook " +
-                               "\n3.View Person by City\n4.View Person by State\n5.Persons Count in City or State\n6.Exit");
+                               "\n3.View Person by City\n4.View Person by State" +
+                               "\n5.Persons Count in City or State\n6.Sort by FirstName\n7.Exit");
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
             System.out.println(choice);
@@ -54,6 +55,9 @@ public class AddressBookMain {
                     Scanner countInput = new Scanner(System.in);
                     String cityOrState = countInput.nextLine();
                     addressBookMain.countContactDetailsByCityOrState(cityOrState);
+                    break;
+                case 6:
+                    addressBookMain.sortContactDetailsByFirstName();
                     break;
                 default:
                     isExit = true;
@@ -101,5 +105,16 @@ public class AddressBookMain {
                 }
             }
             System.out.println("Total Number of ContactDetails in  " +cityOrState + " is: " + count);
+    }
+
+    public void sortContactDetailsByFirstName() {
+        addressBookDic.forEach((key, value) ->
+                               System.out.println("sorted contacts by first name: "
+                                                                  + value.getPersonsData()
+                                                                         .stream()
+                                                           .sorted(Comparator.comparing(ContactDetails::getFirstName))
+                                          .collect(Collectors.toList())
+                                                )
+                              );
     }
 }
