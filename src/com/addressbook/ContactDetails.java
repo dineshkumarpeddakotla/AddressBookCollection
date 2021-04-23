@@ -1,6 +1,7 @@
 package com.addressbook;
 
 class ContactDetails extends AddressBook {
+    //Declaring Varaibles
     private String firstName;
     private String lastName;
     private String address;
@@ -10,6 +11,7 @@ class ContactDetails extends AddressBook {
     private String phoneNumber;
     private String email;
 
+    //Constructor
     public ContactDetails(String firstName, String lastName, String address, String city, String state, String zipCode, String phoneNumber, String email) {
         setFirstName(firstName);
         setLastName(lastName);
@@ -21,6 +23,7 @@ class ContactDetails extends AddressBook {
         setEmail(email);
     }
 
+    //Getters and Setters for Variables
     public String getFirstName() {
         return firstName;
     }
@@ -61,6 +64,10 @@ class ContactDetails extends AddressBook {
         this.zipCode = zipCode;
     }
 
+    public String getZipCode() {
+        return zipCode;
+    }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -69,6 +76,7 @@ class ContactDetails extends AddressBook {
         this.email = email;
     }
 
+    @Override
     public String toString() {
         return ("First Name: " + firstName + "\nLast Name: " + lastName + "\nAddress: " + address + "\nCity: " + city +
                 "\nState: " + state + "\nZip Code: " + zipCode + "\nPhone Number: " + phoneNumber + "\nEmail: " + email);
