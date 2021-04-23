@@ -1,13 +1,13 @@
 package com.addressbook;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBookMain {
     private final HashMap<String, AddressBook> addressBookDic = new HashMap<>();
+    private final HashMap<String, List<List<ContactDetails>>> cityContactDetailsDic = new HashMap<>();
+    private final HashMap<String, List<List<ContactDetails>>> stateContactDetailsDic = new HashMap<>();
+
 
     static AddressBookMain addressBookMain = new AddressBookMain();
 
@@ -39,24 +39,50 @@ public class AddressBookMain {
                     System.out.println(addressBookMain.addressBookDic.values().toString());
                     break;
                 case 3:
-                    System.out.println("Enter City or State Name");
+                    System.out.println("Enter City Name");
                     Scanner searchInput = new Scanner(System.in);
-                    String cityOrState = searchInput.nextLine();
-                    addressBookMain.searchByCityOrState(cityOrState);
+                    String city = searchInput.nextLine();
+                    addressBookMain.viewPersonByCity(city);
+                    break;
+                case 4:
+                    System.out.println("Enter State Name");
+                    Scanner search = new Scanner(System.in);
+                    String state = search.nextLine();
+                    addressBookMain.viewPersonByState(state);
                     break;
                 default:
                     isExit = true;
                     break;
             }
         }
-        addressBookMain.addressBookDic.forEach((key, value) -> System.out.println("Key : "+key + " Value-> " + value));
+        addressBookMain.addressBookDic.forEach((key, value) ->
+                                               System.out.println("Key : "+key + " Value-> " + value));
     }
 
-    public void searchByCityOrState(String cityOrState) {
+    public void viewPersonByCity(String city) {
+        List<List<ContactDetails>> cityContactDetailsList = new ArrayList<>();
         for (Map.Entry<String,AddressBook> addressBookEntry : addressBookMain.addressBookDic.entrySet()) {
-            List<ContactDetails> cityOrStateData = addressBookEntry.getValue().getPersonsData().stream()
-                    .filter(person -> person.getCity().equals(cityOrState) || person.getState().equals(cityOrState)).collect(Collectors.toList());
-            System.out.println(cityOrStateData);
+            List<ContactDetails> cityData = addressBookEntry.getValue()
+                                                            .getPersonsData()
+                                                            .stream()
+                                                            .filter(person -> person.getCity().equals(city))
+                                                            .collect(Collectors.toList());
+            cityContactDetailsList.add(cityData);
         }
+        cityContactDetailsDic.put(city, cityContactDetailsList);
+        System.out.println(cityContactDetailsDic.toString());
+    }
+
+    public void viewPersonByState(String state) {
+        List<List<ContactDetails>> stateContactDetailsList = new ArrayList<>();
+        for (Map.Entry<String,AddressBook> addressBookEntry : addressBookMain.addressBookDic.entrySet()) {
+            List<ContactDetails> stateData = addressBookEntry.getValue()
+                                                             .getPersonsData().stream()
+                                                             .filter(person -> person.getState().equals(state))
+                                                             .collect(Collectors.toList());
+            stateContactDetailsList.add(stateData);
+        }
+        stateContactDetailsDic.put(state, stateContactDetailsList);
+        System.out.println(stateContactDetailsDic.toString());
     }
 }
