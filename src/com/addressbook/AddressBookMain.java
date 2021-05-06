@@ -50,7 +50,7 @@ public class AddressBookMain {
                     } else {
                         System.out.println("Address Book is not present");
                     }
-                    //addressBookMain.addressBookFileIO.writeDataToAddressBookFIle(addressBookMain.addressBookDic);
+                    addressBookMain.addressBookFileIO.writeDataToAddressBookFIle(addressBookMain.addressBookDic);
                     break;
                 case 3://search contact details by city and added try and catch for exception
                     try {
