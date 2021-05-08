@@ -15,6 +15,8 @@ public class AddressBookMain {
     //Created Class Member Object
     static AddressBookMain addressBookMain = new AddressBookMain();
     AddressBookFileIO addressBookFileIO = new AddressBookFileIO();
+    AddressBookCsvFileHandler addressBookCsvFileHandler = new AddressBookCsvFileHandler();
+
 
     /**
      * main method
@@ -50,7 +52,9 @@ public class AddressBookMain {
                     } else {
                         System.out.println("Address Book is not present");
                     }
-                    addressBookMain.addressBookFileIO.writeDataToAddressBookFIle(addressBookMain.addressBookDic);
+                    addressBookMain.addressBookCsvFileHandler.writeAddressBookDataInCsv
+                                                              (addressBook.getContactDetailsList());
+                    //addressBookMain.addressBookFileIO.writeDataToAddressBookFIle(addressBookMain.addressBookDic);
                     break;
                 case 3://search contact details by city and added try and catch for exception
                     try {
