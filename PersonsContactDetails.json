@@ -1,0 +1,32 @@
+{
+  "bhushan": {
+    "ContactDetailsList": [
+      {
+        "FirstName": "bhushan",
+        "LastName": "m",
+        "Address": "rajivecolony",
+        "City": "hyderabad",
+        "State": "telangana",
+        "ZipCode": "515788",
+        "PhoneNumber": "9542409637",
+        "Email": "bhushan@gmail.com",
+        "ContactDetailsList": []
+      }
+    ]
+  },
+  "dinesh": {
+    "ContactDetailsList": [
+      {
+        "FirstName": "dinesh",
+        "LastName": "p",
+        "Address": "gandhicolony",
+        "City": "anantapur",
+        "State": "andhrapradesh",
+        "ZipCode": "515411",
+        "PhoneNumber": "8919105923",
+        "Email": "dinesh@gmail.com",
+        "ContactDetailsList": []
+      }
+    ]
+  }
+}

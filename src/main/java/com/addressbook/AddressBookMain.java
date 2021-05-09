@@ -13,9 +13,11 @@ public class AddressBookMain {
     public static final Scanner scanner = new Scanner(System.in);
 
     //Created Class Member Object
+
     static AddressBookMain addressBookMain = new AddressBookMain();
-    AddressBookFileIO addressBookFileIO = new AddressBookFileIO();
-    AddressBookCsvFileHandler addressBookCsvFileHandler = new AddressBookCsvFileHandler();
+    //AddressBookFileIO addressBookFileIO = new AddressBookFileIO();
+    //AddressBookCsvFileHandler addressBookCsvFileHandler = new AddressBookCsvFileHandler();
+    AddressBookJsonFileHandler addressBookJsonHandler = new AddressBookJsonFileHandler();
 
 
     /**
@@ -52,9 +54,11 @@ public class AddressBookMain {
                     } else {
                         System.out.println("Address Book is not present");
                     }
-                    addressBookMain.addressBookCsvFileHandler.writeAddressBookDataInCsv
-                                                              (addressBook.getContactDetailsList());
-                    //addressBookMain.addressBookFileIO.writeDataToAddressBookFIle(addressBookMain.addressBookDic);
+                    addressBookMain.addressBookJsonHandler.writeDataInJasonFile(addressBookMain.addressBookDic);
+
+//                    addressBookMain.addressBookCsvFileHandler.writeAddressBookDataInCsv
+//                                                              (addressBook.getContactDetailsList());
+//                    //addressBookMain.addressBookFileIO.writeDataToAddressBookFIle(addressBookMain.addressBookDic);
                     break;
                 case 3://search contact details by city and added try and catch for exception
                     try {
@@ -96,7 +100,7 @@ public class AddressBookMain {
             }
         }
         addressBookMain.addressBookDic.forEach((key, value) -> System.out.println("Key : "+key + " Value-> " + value));
-        System.out.println(addressBookMain.addressBookFileIO.readAddressBookData());
+       // System.out.println(addressBookMain.addressBookFileIO.readAddressBookData());
     }
 
     /**
