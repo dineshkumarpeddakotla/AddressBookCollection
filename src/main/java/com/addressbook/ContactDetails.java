@@ -98,7 +98,16 @@ public class ContactDetails extends AddressBook {
     // overriding toString method
     @Override
     public String toString() {
-        return ("First Name: " + firstName + "\nLast Name: " + lastName + "\nAddress: " + address + "\nCity: " + city +
-                "\nState: " + state + "\nZip Code: " + zipCode + "\nPhone Number: " + phoneNumber + "\nEmail: " + email);
+        return "ContactDetails{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
+
 }
