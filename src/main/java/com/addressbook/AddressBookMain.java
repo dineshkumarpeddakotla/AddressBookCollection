@@ -14,7 +14,7 @@ public class AddressBookMain {
 
     //Created Class Member Object
 
-    static AddressBookMain addressBookMain = new AddressBookMain();
+
     //AddressBookFileIO addressBookFileIO = new AddressBookFileIO();
     //AddressBookCsvFileHandler addressBookCsvFileHandler = new AddressBookCsvFileHandler();
     AddressBookJsonFileHandler addressBookJsonHandler = new AddressBookJsonFileHandler();
@@ -26,6 +26,8 @@ public class AddressBookMain {
      */
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book");
+
+        AddressBookMain addressBookMain = new AddressBookMain();
 
         boolean isExit = false;
         while (!isExit) {
@@ -109,7 +111,7 @@ public class AddressBookMain {
      */
     private void viewPersonByCity(String city) {
         List<List<ContactDetails>> cityContactDetailsList = new ArrayList<>();
-        for (Map.Entry<String,AddressBook> addressBookEntry : addressBookMain.addressBookDic.entrySet()) {
+        for (Map.Entry<String,AddressBook> addressBookEntry : addressBookDic.entrySet()) {
             List<ContactDetails> cityData = addressBookEntry.getValue()
                                                             .getContactDetailsList()
                                                             .stream()
@@ -127,7 +129,7 @@ public class AddressBookMain {
      */
     private void viewPersonByState(String state) {
         List<List<ContactDetails>>stateContactDetailsList = new ArrayList<>();
-        for (Map.Entry<String,AddressBook> addressBookEntry : addressBookMain.addressBookDic.entrySet()) {
+        for (Map.Entry<String,AddressBook> addressBookEntry : addressBookDic.entrySet()) {
             List<ContactDetails> stateData = addressBookEntry.getValue()
                                                              .getContactDetailsList().stream()
                                                              .filter(person -> person.getState().equals(state))
@@ -167,19 +169,19 @@ public class AddressBookMain {
             int option = scanner.nextInt();
             switch(option) {
                 case 1:
-                    addressBookMain.sortContactDetailsByFirstName();
+                    sortContactDetailsByFirstName();
                     break;
                 case 2:
-                    addressBookMain.sortContactDetailsByLastName();
+                    sortContactDetailsByLastName();
                     break;
                 case 3:
-                    addressBookMain.sortContactDetailsByCity();
+                    sortContactDetailsByCity();
                     break;
                 case 4:
-                    addressBookMain.sortContactDetailsByState();
+                    sortContactDetailsByState();
                     break;
                 case 5:
-                    addressBookMain.sortContactDetailsByZipCode();
+                    sortContactDetailsByZipCode();
                     break;
                 case 6:
                     isExit = true;
