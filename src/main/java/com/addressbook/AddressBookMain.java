@@ -12,9 +12,6 @@ public class AddressBookMain {
     private final HashMap<String, List<List<ContactDetails>>> stateContactDetailsDic = new HashMap<>();
     public static final Scanner scanner = new Scanner(System.in);
 
-    //Created Class Member Object
-
-
     //AddressBookFileIO addressBookFileIO = new AddressBookFileIO();
     //AddressBookCsvFileHandler addressBookCsvFileHandler = new AddressBookCsvFileHandler();
     AddressBookJsonFileHandler addressBookJsonHandler = new AddressBookJsonFileHandler();
