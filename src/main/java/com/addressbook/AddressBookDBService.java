@@ -7,6 +7,8 @@
 package com.addressbook;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddressBookDBService {
 
@@ -46,8 +48,10 @@ public class AddressBookDBService {
      * uses getMetaData interface of ResultSet to get all data about data
      * from db and uses loops to get all data from database table
      * added try and catch blocks to throw sql exception
+     * @return contactDetailsList
      */
-    private void retrieveAddressBookData() {
+    public List<String> retrieveAddressBookData() {
+        List<String> contactDetailsList = new ArrayList<>();
         String sql = "select address_book_name.name,type.type_name,contact_details.* " +
                      "from type join contact_type on contact_type.type_id = type.type_id\n" +
                      "join address_book_name on address_book_name.name_id = contact_type.name_id\n" +
@@ -58,15 +62,18 @@ public class AddressBookDBService {
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
             while (resultSet.next()) {
+                String columnValue = null;
                 for(int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
                     if (i > 1) System.out.print(",  ");
-                    String columnValue = resultSet.getString(i);
+                    columnValue =  resultSet.getString(i);
                     System.out.print(resultSetMetaData.getColumnName(i) + " : " +columnValue );
                 }
+                contactDetailsList.add(columnValue);
                 System.out.println();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return contactDetailsList;
     }
 }
