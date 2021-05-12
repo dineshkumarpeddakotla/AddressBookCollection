@@ -21,4 +21,16 @@ public class TestAddressBookDBService {
         List<String> contactDetailsList = addressBookDBService.retrieveAddressBookData();
         Assertions.assertEquals(6, contactDetailsList.size());
     }
+    /*
+    when data is updated to database should check whether data is sync or not with address_book_service
+    and tested using test case
+     */
+    @Test
+    public void givenNewSalaryForEmployee_WhenUpdated_ShouldSyncWithDB() {
+        AddressBookDBService addressBookDBService = new AddressBookDBService();
+        addressBookDBService.retrieveAddressBookData();
+        addressBookDBService.updateContactDetails("dinesh","9440705741");
+        boolean result = addressBookDBService.checkAddressBookSyncWithDB("dinesh");
+        Assertions.assertTrue(result);
+    }
 }
