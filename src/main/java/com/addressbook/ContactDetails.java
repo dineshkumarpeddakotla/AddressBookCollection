@@ -22,7 +22,7 @@ public class ContactDetails extends AddressBook {
     private String state;
     @CsvBindByName(column = "zipCode",required = true)
     @CsvBindByPosition(position = 5)
-    private String zipCode;
+    private int zipCode;
     @CsvBindByName(column = "phoneNumber",required = true)
     @CsvBindByPosition(position = 6)
     private String phoneNumber;
@@ -31,7 +31,7 @@ public class ContactDetails extends AddressBook {
     private String email;
 
     //parameterized Constructor
-    public ContactDetails(String firstName, String lastName, String address, String city, String state, String zipCode, String phoneNumber, String email) {
+    public ContactDetails(String firstName, String lastName, String address, String city, String state, int zipCode, String phoneNumber, String email) {
         setFirstName(firstName);
         setLastName(lastName);
         setAddress(address);
@@ -79,11 +79,11 @@ public class ContactDetails extends AddressBook {
         return state;
     }
 
-    public void setZipCode(String zipCode) {
+    public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
 
-    public String getZipCode() {
+    public int getZipCode() {
         return zipCode;
     }
 

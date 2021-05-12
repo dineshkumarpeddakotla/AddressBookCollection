@@ -29,7 +29,7 @@ public class AddressBook {
         System.out.println("Enter the State");
         String state = scanner.next();
         System.out.println("Enter the Zip Code");
-        String zipCode = scanner.next();
+        int zipCode = Integer.parseInt(scanner.next());
         System.out.println("Enter the Phone Number");
         String phoneNumber = scanner.next();
         System.out.println("Enter the Email");
@@ -80,7 +80,7 @@ public class AddressBook {
                     break;
                 case 6:
                     System.out.println("Enter Zip Code to Change");
-                    String zipCode = scanner.next();
+                    int zipCode = Integer.parseInt(scanner.next());
                     person.setZipCode(zipCode);
                     break;
                 case 7:
